@@ -1,4 +1,5 @@
-from main import *
+from imports import *
+
 from augmentation import Augmentaton
 
 class DataManager:
@@ -45,7 +46,8 @@ class DataManager:
 
         return img.astype(np.float64), mask.astype(np.float64)
 
-    def create_dataset(self, data, BATCH_SIZE, BUFFER_SIZE = 1000):
+    def create_dataset(self, BATCH_SIZE, BUFFER_SIZE = 1000):
+        data = self.build_df()
         dataset = tf.data.Dataset.from_tensor_slices((data['Image'], data['Mask']))
         dataset = dataset.shuffle(BUFFER_SIZE)
         dataset = dataset.map(lambda img, mask : tf.numpy_function(

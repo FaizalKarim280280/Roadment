@@ -1,4 +1,4 @@
-from main import *
+from imports import *
 
 class Model:
     def __init__(self, input_shape, num_classes):
@@ -111,13 +111,12 @@ class Model:
 
         return model
 
-    def lr_scheduler(self, lr):
-        n = 3.0
-        if epoch % 5 == 0 and epoch != 0:
-            print("lr changed from {} to {}".format(lr, lr/n))
-            return lr/n
+    def lr_scheduler(self, epoch, lr):
+        factor, step = 0.3, 5
+        if epoch % step == 0 and epoch != 0:
+            print("lr changed from {} to {}".format(lr, lr*factor))
+            return lr * factor
         else:
             return lr
 
-    def train_model(self, ):
-        pass
+
