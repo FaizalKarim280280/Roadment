@@ -1,7 +1,8 @@
 numpy==1.22.2
-matplotlib==3.51
+matplotlib==3.5.1
 pandas==1.4.0
 opencv-python==4.5.5.62
 tqdm==4.62.3
 albumentations==1.1.0
 scikit-learn==1.0.2
+tensorflow==2.8.0
