@@ -13,7 +13,7 @@ from tensorflow import keras
 from time import time
 from tqdm import tqdm
 from keras import backend as K
-import segmentaton_models as sm
+# import segmentaton_models as sm
 
 # plt.style.use('seaborn')
 
