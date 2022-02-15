@@ -1,4 +1,4 @@
-from imports import *
+from src.imports import *
 
 class Model:
     def __init__(self, input_shape, num_classes):
