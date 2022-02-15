@@ -1,0 +1,97 @@
+.heading {
+    font-size: 6em;
+    color: rgb(1, 50, 67);
+    font-weight: 600;
+    margin-left: 250px;
+
+}
+
+.new-container {
+    background-color: rgb(1, 50, 67);
+    width: 100vw;
+    min-height: 45px;
+
+}
+
+.card {
+    width: 450px;
+    text-align: left;
+    font-size: 14px;
+    margin: 15px;
+    overflow: hidden;
+
+    border-radius: 10%;
+}
+
+.theory {
+    margin-top: 100px;
+}
+
+.col-lg-4 {
+    padding-left: 100px;
+}
+
+.simulate-btn {
+    justify-content: center;
+    margin-left: 680px;
+    text-align: center;
+    width: 130px;
+    height: 50px;
+    color: #000;
+    outline: none;
+    border: none;
+
+
+    border-radius: 30px;
+    box-shadow: 0 8px 15px rgb(0 0 0 / 10%);
+
+}
+
+.input-link {
+    justify-content: center;
+    margin-left: 500px;
+    margin-top: 100px;
+
+
+}
+
+
+.simulator {
+    background-color: #eee;
+}
+
+.result1 {
+    padding-top: 70px;
+    padding-left: 170px;
+}
+
+.result2 {
+    padding-top: 85px;
+    padding-left: 190px;
+}
+
+.about {
+    background-color: rgb(1, 50, 67);
+    padding-top: 40px;
+    color: white;
+}
+
+.choose-file {
+    width: 500px;
+    margin-left: 500px;
+    margin-top: 100px;
+}
+
+.result-img {
+    width: 384px;
+    height: 384px;
+}
+
+.nav-item{
+    padding-right: 20px;
+}
+.nav-link{
+    font-size: 18px;
+}
+
+
