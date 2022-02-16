@@ -1,6 +1,6 @@
-from imports import *
+from src.imports import *
 
-from augmentation import Augmentaton
+from src.augmentation import Augmentaton
 
 class DataManager:
     def __init__(self, img_shape):
