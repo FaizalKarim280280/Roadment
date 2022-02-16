@@ -1,8 +1,12 @@
-from flask import Flask, render_template, redirect, url_for, request
-from werkzeug.utils import secure_filename
-from src.imports import *
-import segmentation_models as sm
+import io
 import numpy as np
+import requests
+import segmentation_models as sm
+from PIL import Image
+from flask import Flask, render_template, request
+from werkzeug.utils import secure_filename
+
+from src.imports import *
 
 app = Flask(__name__)
 app.config['IMAGE_UPLOADS'] = 'D:/Machine learning/Road Extraction/Roadment/Web/static/Satellite Images/'
@@ -28,6 +32,23 @@ def upload_image():
         return render_template("index.html", filename = file_name, outname = 'out_plot.png')
 
     return render_template("index.html")
+
+@app.route('/url-upload', methods = ['POST', 'GET'])
+def url_upload():
+    PATH = 'D:/Machine learning/Road Extraction/Roadment/Web/static/Satellite Images/'
+    clear_dir(PATH)
+
+    if request.method == 'POST':
+        url = request.form['url']
+        response = requests.get(url)
+        bytes_im = io.BytesIO(response.content)
+        img = np.array(Image.open(bytes_im))[:, :, :3]
+
+        plt.imsave('D:\Machine learning\Road Extraction\Roadment\Web\static\Satellite Images\in_plot.png', img)
+        prediction(model, 'in_plot.png')
+
+        return render_template("index.html", filename = 'in_plot.png', outname = 'out_plot.png')
+
 
 
 def clear_dir(PATH):

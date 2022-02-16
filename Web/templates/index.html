@@ -163,21 +163,21 @@
 
 
 <section class="simulator" id="id-simul">
+
     <div class="container-fluid" style="padding-top: 60px;padding-left: 50px;">
 
         <h2 style="color: rgb(1, 50, 67);margin-left: 600px;">Real Time Simulator</h2>
 
+        <div class="mb-3">
+            <form class="input-link col" method="POST" action="/url-upload">
+                <label for="exampleInputEmail1" class="form-label" style="color: #000;">Paste Image Link Here</label>
+                <input type="text" class="form-control" id="exampleInputEmail1"
+                       style="width: 500px; border: 1px solid #ced4da; border-radius: 3px;" required name="url" placeholder="https://">
+                <button type="submit" class="btn btn-outline-secondary btn-md simulate-btn" style="margin-top:20px; margin-left: 180px;">
+                    Simulate</button>
+            </form>
+        </div>
 
-        <form class="input-link">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label" style="color: #000;">Paste Image Link
-                    Here</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                       style="width: 500px; border-color: #000; border-radius: 3px;">
-            </div>
-        </form>
-
-        <button type="button" class="btn btn-outline-secondary btn-md simulate-btn">Simulate</button>
 
         <h2 style="color:rgb(1, 50, 67);margin-top: 100px;margin-left: 720px;">OR</h2>
 
@@ -185,8 +185,7 @@
         <div class="mb-3">
 
             <form class="image-upload row g-2" method="POST" action="/image-upload" enctype="multipart/form-data">
-                <input class="form-control choose-file" type="file" id="formFile" name = "image" required>
-
+                <input class="form-control choose-file" type="file" id="formFile" name="image" required>
 
                 <button type="submit" class="btn btn-outline-secondary btn-md simulate-btn" style="margin-top: 20px;">
                     Simulate
@@ -202,15 +201,17 @@
 
         <div class="col-lg-6 result1">
 
-            <img class = "rounded result-img" src="{{ url_for('static', filename = 'Satellite Images/' + filename) }}" alt="">
+            <img class="rounded result-img" src="{{ url_for('static', filename = 'Satellite Images/' + filename) }}"
+                 alt="">
             <h3 style="padding-left:120px;color: rgb(1, 50, 67); margin-bottom: 50px;">Input Image</h3>
 
         </div>
 
         <div class="col-lg-6 result2">
 
-            <img class = "rounded result-img" src="{{ url_for('static', filename = 'Satellite Images/' + outname) }}" alt="">
-            <h3 style="padding-left:120px; padding-top: 10px;color: rgb(1, 50, 67);margin-bottom: 50px">Output
+            <img class="rounded result-img" src="{{ url_for('static', filename = 'Satellite Images/' + outname) }}"
+                 alt="">
+            <h3 style="padding-left:120px;color: rgb(1, 50, 67);margin-bottom: 50px">Output
                 Image</h3>
 
         </div>
