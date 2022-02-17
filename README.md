@@ -2,7 +2,7 @@
 Roadment is an end-to-end platform for segmetation of roads from satellite images. We have built a website, integrated with a deep learning model using Flask API. A demo is provided below:
 
 ![Alt text](https://github.com/FaizalKarim280280/Roadment/blob/fk/plots/demo.gif)
-<br>
+<br><br>
 ![Alt text](https://github.com/FaizalKarim280280/Roadment/blob/fk/plots/pred.jpg)
 
 # Description
