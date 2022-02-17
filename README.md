@@ -1,7 +1,7 @@
 # Project Title: RoadMent
 Roadment is an end-to-end platform for segmetation of roads from satellite images. We have built a website, integrated with a deep learning model using Flask API. A demo is provided below:
 
-[comment]: <> (demo)
+![Alt text](https://github.com/FaizalKarim280280/Roadment/blob/fk/plots/demo.gif)
 
 # Description
 Semantic segmentation is the process of classifying each pixel of an image into distinct classes using deep learning. This aids in identifying regions in an image where certain objects reside.
@@ -48,7 +48,7 @@ For this project, we will use the [Massachusetts Roads Dataset](https://www.kagg
 3. Adam was used as optimizer and learning rate was initially set to 5e-4 and after every 2 epochs the learning rate was reduced 1.5 times.
 4. After training for 15 epochs, we obtained a training iou score of 0.497 and validation iou score of 0.415
 
-![Alt text]()
+![Alt text](https://github.com/FaizalKarim280280/Roadment/blob/fk/plots/evaluation.png)
 
 ## References
 * [U-Net: Convolutional Networks for Biomedical Image Segmentation - Olaf Ronneberger, Philipp Fischer, Thomas Brox](https://arxiv.org/abs/1505.04597)
