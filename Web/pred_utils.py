@@ -3,7 +3,7 @@ from src.imports import *
 class ModelPrediction:
     def __init__(self, Image_Size):
         self.IMAGE_SIZE = Image_Size
-        self.MODEL_PATH = '../Web/Model/model_main_loss=0.36_iou=0.47.h5'
+        self.MODEL_PATH = '../Web/Model/model_loss=0.3458_iou=0.489.h5'
         self.OUT_IMAGE_PATH = '../Web/static/Satellite Images/'
         self.MASK_COLOR = [i / 255 for i in list([66, 255, 73])]
 
@@ -21,7 +21,8 @@ class ModelPrediction:
         objects = {
             'dice_coef': self.dice_coef,
             'dice_coef_loss': self.dice_coef_loss,
-            'iou_score': sm.metrics.iou_score
+            'iou_score': sm.metrics.iou_score,
+            'binary_crossentropy_plus_jaccard_loss': sm.losses.bce_jaccard_loss
         }
 
         model = keras.models.load_model(
