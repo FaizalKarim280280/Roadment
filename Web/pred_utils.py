@@ -1,19 +1,14 @@
-import segmentation_models as sm
-import numpy as np
-import os
-import cv2 as op
-import matplotlib.pyplot as plt
-import tensorflow as tf
-from os import listdir
-from tensorflow import keras
-from keras import backend as K
+from src.imports import *
 
 class ModelPrediction:
-    def __init__(self,Image_Size):
+    def __init__(self, Image_Size):
         self.IMAGE_SIZE = Image_Size
+        self.MODEL_PATH = '../Web/Model/model_loss=0.3458_iou=0.489.h5'
+        self.OUT_IMAGE_PATH = '../Web/static/Satellite Images/'
+        self.MASK_COLOR = [i / 255 for i in list([66, 255, 73])]
 
     @staticmethod
-    def dice_coef(self,y_true, y_pred):
+    def dice_coef(self, y_true, y_pred):
         y_true_f = K.flatten(y_true)
         y_pred_f = K.flatten(y_pred)
         intersection = K.sum(y_true_f * y_pred_f)
@@ -26,38 +21,46 @@ class ModelPrediction:
         objects = {
             'dice_coef': self.dice_coef,
             'dice_coef_loss': self.dice_coef_loss,
-            'iou_score': sm.metrics.iou_score
+            'iou_score': sm.metrics.iou_score,
+            'binary_crossentropy_plus_jaccard_loss': sm.losses.bce_jaccard_loss
         }
 
         model = keras.models.load_model(
-            r'C:\Users\Asus\Desktop\RoadMent\Web\Model\model_main_loss=0.36_iou=0.47.h5',
+            self.MODEL_PATH,
             custom_objects=objects)
         return model
-    
-    def placeMaskOnImg(self,img, mask):
-        color = [66, 255, 73]
-        color = [i / 255.0 for i in color]
-        np.place(img[:, :, :], mask[:, :, :] >= 0.5, color)
+
+    def place_mask_on_img(self, img, mask):
+        np.place(img[:, :, :], mask[:, :, :] >= 0.5, self.MASK_COLOR)
         return img
-    
-    def make_pred_good(self,pred):
+
+    def make_pred_good(self, pred):
         pred = pred[0][:, :, :]
         pred = np.repeat(pred, 3, 2)
         return pred
-    
-    def compute(self,model, PATH):
-        img = op.imread(PATH)
+
+    def normalize_image(self, img):
         img = op.cvtColor(img, op.COLOR_BGR2RGB)
-
         img = img / 255.0
-        img = op.resize(img, (512, 512))
+        img = op.resize(img, self.IMAGE_SIZE)
         img = np.expand_dims(img, axis=0)
-        img = img[:, :, :, :3]
 
+        if len(img.shape) == 4:
+            img = self.convert_png(img)
+
+        return img
+
+    def compute(self, model, PATH):
+        img = op.imread(PATH)
+        img = self.normalize_image(img)
+        print()
         pred = self.make_pred_good(model(img))
-        pred = self.placeMaskOnImg(img[0], pred)
+        pred = self.place_mask_on_img(img[0], pred)
 
         plt.axis('off')
         plt.grid(False)
 
-        plt.imsave(r'C:/Users/Asus/Desktop/RoadMent/Web/static/Satellite Images/out_plot.png', pred)
+        plt.imsave(self.OUT_IMAGE_PATH + 'out_plot.png', pred)
+
+    def convert_png(self, img):
+        return img[:, :, :, :3]

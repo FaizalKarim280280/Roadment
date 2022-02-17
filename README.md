@@ -1,24 +1,61 @@
-# Roadment
+# Project Title: RoadMent
+Roadment is an end-to-end platform for segmetation of roads from satellite images. We have built a website, integrated with a deep learning model using Flask API. A demo is provided below:
 
-## Introduction
+![Alt text](https://github.com/FaizalKarim280280/Roadment/blob/fk/plots/demo.gif)
+
+# Description
 Semantic segmentation is the process of classifying each pixel of an image into distinct classes using deep learning. This aids in identifying regions in an image where certain objects reside.
 
-The aim of this project is to build a web application which will identify and segment roads in aerial images.Road segmentation in aerial images is a crucial process in the workflow of target based aerial image analysis. This task focusses to mapping every pixel to a semantic label. It has various applications such as road navigation, urban infrastructure development and geographic information collection.In the last decade, a lot of research has happened related to road information extraction from aerial imagery. Still it remains a challenging task due to noise, complex Image background and occlusions.
+The aim of this project is to build a web application which will identify and segment roads in aerial images.Road segmentation in aerial images is a crucial process in the workflow of target based aerial image analysis. In the last decade, a lot of research has happened related to road information extraction from aerial imagery. Still it remains a challenging task due to noise, complex Image background and occlusions.
 
-This project will be the first attempt to build an end-to-end, user friendly platform for segmentation of roads. Moreover existing technologies such as Google Maps rely on human effort for annotation of their maps. Our project aims at automating the task of pointing out the roads in such maps, which require frequent updates and checking. 
+Existing technologies such as Google Maps rely on human effort for annotation of their maps. Our project aims at automating the task of pointing out the roads in such maps, which require frequent updates and checking. 
 
-## Contents:
-1. Dataset.
-2. Manipulating the data.
-3. Model Architecture
+# Contents:
+1. Dataset
+2. Tools and libraries    
+3. Data Preprcessing
+4. Model Architecture
+5. Training and evaluation
+6. References
 
-## Dataset
-For this project, we will use the [Massachusetts Roads Dataset](https://www.kaggle.com/balraj98/massachusetts-roads-dataset). This dataset contains aerial images, along with the target masks.The dataset contains 1171 images and respective masks. Both the masks and the images are 1500x1500 in the resolution are present in the .tiff format. 
+## 1. Dataset
+For this project, we will use the [Massachusetts Roads Dataset](https://www.kaggle.com/balraj98/massachusetts-roads-dataset). This dataset contains aerial images, along with the target masks.The dataset contains 1171 aerial images of the state of Massachusetts and respective their masks. Both the masks and the images are 1500x1500 in the resolution are present in the .tiff format. 10 percent of the dataset was used for validation.
 
-## Manipulating the data
+## Tools and libraries
+* TensorFlow framework for model building.
+* Albumentations for data augmentation.
+* segmentation_models for defining custom loss function.
+* Other secondary libraries mentioned in requirements.txt
+
+## Data Preprocessing
+1. Images were reshaped to 512x512 dimension and normalized [0,1].
+2. The training images were of very high quality(1500x1500) but for testing such high quality is not easy to gather. So, we decided to augment the images by randomly blurring them and applying random horizontal flip. On using more augmentation methods, accuracy didn't improve.  
+3. _tf.data.Dataset_ was used for building an efficient data pipeline.
 
 
 ## Model Architecture
-We used a standard fully convolutional UNet structure that receives an RGB colour image as input and generates a same-size semantic segmentation map as output. The structure of the network is an encoder-decoder network with skip connections between various feature levels of the encoder to the decoder. This enables the network to combine information from both deep abstract features and local, high-resolution information to generate the final output.
+1. We used a standard fully convolutional UNet structure that receives an RGB colour image as input and generates a same-size semantic segmentation map as output. The structure of the network is an encoder-decoder network with skip connections between various feature levels of the encoder to the decoder.
+   
+2. The model has 4 downsampling blocks and 3 upsampling blocks. 
+    1. The downsampling contraction section, known as the encoder, extracts feature information from the input by decreasing in spatial dimensions but increasing in feature dimensions.
+    2. The upsampling section, known as the decoder, reduces the image in feature dimension while increasing the spatial dimensions. It uses skip connections that allow it to tap into the same-sized output of the contraction section, which allows it to use higher-level locality features in its upsampling.
+    
+3. This is a strong architecture for image segmentation, as we must assign each pixel a class. Thus, our output must use the high-resolution information from the input image to obtain a good prediction.
 
-The chosen UNet structure is a proven architecture for extracting both deep abstract features and local features. It consists of three sections- the contraction, bottleneck, and expansion. The downsampling contraction section, known as the encoder, extracts feature information from the input by decreasing in spatial dimensions but increasing in feature dimensions. The bottleneck is where we have a compact representation of the input. The upsampling expansion section, known as the decoder, reduces the image in feature dimension while increasing the spatial dimensions. It uses skip connections that allow it to tap into the same-sized output of the contraction section, which allows it to use higher-level locality features in its upsampling. This is a strong architecture for image segmentation, as we must assign each pixel a class. Thus, our output must use the high-resolution information from the input image to obtain a good prediction.
+## Training and evaluation
+1. The model was trained for 15 epochs using a batch size of 4. We have used a smaller batch size because of memory issues.
+2. Loss function used during training was [dice-coeffiencet loss](https://medium.com/ai-salon/understanding-dice-loss-for-crisp-boundary-detection-bb30c2e5f62b) and metrics used were dice coefficient and [IoU score](https://towardsdatascience.com/iou-a-better-detection-evaluation-metric-45a511185be1).
+3. Adam was used as optimizer and learning rate was initially set to 5e-4 and after every 2 epochs the learning rate was reduced 1.5 times.
+4. After training for 15 epochs, we obtained a training iou score of 0.497 and validation iou score of 0.415
+
+![Alt text](https://github.com/FaizalKarim280280/Roadment/blob/fk/plots/evaluation.png)
+
+## References
+* [U-Net: Convolutional Networks for Biomedical Image Segmentation - Olaf Ronneberger, Philipp Fischer, Thomas Brox](https://arxiv.org/abs/1505.04597)
+* [Road Segmentation in Aerial Images by Exploiting Road Vector Data - Jiangye Yuan, Anil M. Cheriyadat](https://ieeexplore.ieee.org/document/6602035)
+*[Road Segmentation in SAR Satellite Images with Deep Fully-Convolutional Neural Networks - Corentin Henry, Seyed Majid Azimi, Nina Merkle](https://arxiv.org/abs/1802.01445)
+* [Tensorflow](https://www.tensorflow.org/)
+* [Albumentations](https://albumentations.ai/docs/)
+* [Segmentation Models](https://github.com/qubvel/segmentation_models)
+
+
