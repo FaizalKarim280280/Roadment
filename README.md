@@ -51,9 +51,9 @@ For this project, we will use the [Massachusetts Roads Dataset](https://www.kagg
 ![Alt text](https://github.com/FaizalKarim280280/Roadment/blob/fk/plots/evaluation.png)
 
 ## References
-* [U-Net: Convolutional Networks for Biomedical Image Segmentation - Olaf Ronneberger, Philipp Fischer, Thomas Brox](https://arxiv.org/abs/1505.04597)
-* [Road Segmentation in Aerial Images by Exploiting Road Vector Data - Jiangye Yuan, Anil M. Cheriyadat](https://ieeexplore.ieee.org/document/6602035)
-*[Road Segmentation in SAR Satellite Images with Deep Fully-Convolutional Neural Networks - Corentin Henry, Seyed Majid Azimi, Nina Merkle](https://arxiv.org/abs/1802.01445)
+* [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597) - Olaf Ronneberger, Philipp Fischer, Thomas Brox (2015)
+* [Road Segmentation in Aerial Images by Exploiting Road Vector Data](https://ieeexplore.ieee.org/document/6602035) - Jiangye Yuan, Anil M. Cheriyadat (2013)
+* [Road Segmentation in SAR Satellite Images with Deep Fully-Convolutional Neural Networks](https://arxiv.org/abs/1802.01445) - Corentin Henry, Seyed Majid Azimi, Nina Merkle (2018)
 * [Tensorflow](https://www.tensorflow.org/)
 * [Albumentations](https://albumentations.ai/docs/)
 * [Segmentation Models](https://github.com/qubvel/segmentation_models)
