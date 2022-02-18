@@ -21,24 +21,24 @@ Existing technologies such as Google Maps rely on human effort for annotation of
 6. References
 
 ## 1. Dataset
-For this project, we have used the [Massachusetts Roads Dataset](https://www.kaggle.com/balraj98/massachusetts-roads-dataset). This dataset contains aerial images, along with the target masks. The dataset contains 1171 aerial images of the state of Massachusetts and respective their masks. Both the masks and the images are 1500x1500 in the resolution are present in the .tiff format. 
+For this project, we have used the [Massachusetts Roads Dataset](https://www.kaggle.com/balraj98/massachusetts-roads-dataset). This dataset contains aerial images, along with the target masks. The dataset contains 1171 aerial images of the state of Massachusetts and their respective masks. Both the masks and the images are 1500x1500 in resolution and are present in .tiff format. 
 
 10% of the dataset was used for validation.
 
 ## 2. Tools and libraries
 * TensorFlow framework for model building.
 * Albumentations for data augmentation.
-* segmentation_models for defining custom loss function.
+* Segmentation Models for defining custom loss function.
 * Other secondary libraries mentioned in requirements.txt
 
 ## 3. Data Preprocessing
 1. Images were reshaped to 512x512 dimension and normalized [0,1].
-2. The training images were of very high quality (1500x1500) but for testing such high quality image is not feasible to gather. So, we decided to augment the images by randomly blurring them and applying random horizontal flip. On applying more augmentation methods, we didn't observe much increase in accuracy.
+2. The training images were of very high quality (1500x1500) but for testing such high quality images are not easy to gather. So, we decided to augment the images by randomly blurring them and applying random horizontal flip. On applying more augmentation methods, we didn't observe much increase in accuracy.
 3. _tf.data.Dataset_ was used for building an efficient data pipeline.
 
 
 ## 4. Model Architecture
-1. We used a standard fully convolutional **UNet** structure that receives an RGB colour image as input and generates a same-size semantic segmentation map as output. The structure of the network is an encoder-decoder network with skip connections between various feature levels of the encoder to the decoder.
+1. We have used a standard fully convolutional **UNet** architecture that receives an RGB colour image as input and generates a same-size semantic segmentation map as output. The structure of the network is an encoder-decoder network with skip connections between various feature levels of the encoder to the decoder.
    
 2. The model has 4 downsampling blocks and 3 upsampling blocks. 
     1. The downsampling section, known as the encoder, extracts feature information from the input by decreasing in spatial dimensions but increasing in feature dimensions.
@@ -50,7 +50,7 @@ For this project, we have used the [Massachusetts Roads Dataset](https://www.kag
 1. The model was trained for 15 epochs using a batch size of 4. We have used a smaller batch size because of memory issues.
 2. Loss function used during training was [dice-coeffiencet loss](https://medium.com/ai-salon/understanding-dice-loss-for-crisp-boundary-detection-bb30c2e5f62b) and metrics used were dice coefficient and [IoU score](https://towardsdatascience.com/iou-a-better-detection-evaluation-metric-45a511185be1).
 3. Adam was used as optimizer and learning rate was initially set to 5e-4 and after every 2 epochs the learning rate was reduced 1.5 times.
-4. After training for 15 epochs, we obtained a training iou score of 0.497 and validation iou score of 0.415
+4. After training for 15 epochs, we obtained a training iou score of 0.497 and validation iou score of 0.415.
 
 ![Alt text](https://github.com/FaizalKarim280280/Roadment/blob/fk/plots/evaluation.png)
 
