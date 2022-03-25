@@ -19,8 +19,7 @@
     font-size: 14px;
     margin: 15px;
     overflow: hidden;
-
-    border-radius: 10%;
+    /*border-radius: 5%;*/
 }
 
 .theory {
@@ -49,11 +48,10 @@
 .input-link {
     justify-content: center;
     margin-left: 500px;
-    margin-top: 100px;
+    margin-top: 60px;
 
 
 }
-
 
 .simulator {
     background-color: #eee;
@@ -93,4 +91,9 @@
     font-size: 18px;
 }
 
+.card-body{
+    text-align: justify;
+    font-size: 16px;
+    background-color: rgba(236, 235, 235, 0.45);
+}
 
